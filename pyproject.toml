@@ -1,0 +1,90 @@
+[project]
+name = "tmsi"
+version = "0.1.0-alpha.1"
+description = "Add your description here"
+authors = [{ name = "Richard M. Köhler" }]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "pylsl>=1.16.2",
+    "numpy>=1.26.4",
+    "pandas>=2.2.1",
+    "mne>=1.6.1",
+    "mne-lsl>=1.2.0",
+    "pyxdf>=1.16.5",
+    "scipy>=1.12.0",
+    "edflib-python>=1.0.8",
+]
+license = { file = "LICENSE.txt" }
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[project.optional-dependencies]
+dev = ["black", "ruff", "build", "pre-commit"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = ["black>=24.3.0", "ruff>=0.3.3", "pre-commit>=3.7.0"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tmsi"]
+
+[tool.black]
+line-length = 110
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
+ignore = [
+    # Within an `except` clause, raise exceptions with `raise ... from err`
+    "B904",
+    # Line too long
+    "E501",
+    # Do not use bare `except`
+    "E722",
+    # from ... import *` used; unable to detect undefined names 
+    "F403",
+    # ... may be undefined, or defined from star imports
+    "F405",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+# SIM115: Use context handler for opening files
+"*_file_writer.py" = ["SIM115"]
+"*/poly5reader.py" = ["SIM115"]
+"*/*_config.py" = ["SIM115"]
+"*/decorators.py" = ["SIM112"]

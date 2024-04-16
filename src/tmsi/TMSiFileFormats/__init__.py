@@ -32,9 +32,12 @@ limitations under the License.
 
 """
 
-import sys
-from os.path import dirname, join, realpath
-
-FileFormats_dir = dirname(realpath(__file__))  # directory of this file
-modules_dir = join(FileFormats_dir, "..")  # directory with all modules
-sys.path.append(modules_dir)
+from .file_writer import FileFormat, FileWriter
+from .file_formats.lsl_stream_writer import LSLWriter
+from .file_formats.mne_lsl_writer import MNELSLWriter
+from .file_formats.poly5_file_writer import Poly5Writer
+from .file_formats.poly5_to_edf_converter import Poly5_to_EDF_Converter
+from .file_formats.xdf_file_writer import XdfWriter
+from .file_readers.poly5reader import Poly5Reader
+from .file_readers.xdf_reader import Xdf_Reader
+from .file_readers.edf_reader import Edf_Reader

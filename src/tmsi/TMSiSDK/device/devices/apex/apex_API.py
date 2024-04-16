@@ -98,7 +98,7 @@ if ApexDllAvailable and not ApexDllLocked:
     # @details This command is used to open a interface. This will create a connection
     # between API and DR and "lock" the interface.
     #
-    # @Pre @li No interface should have been openend.
+    # @Pre @li No interface should have been opened.
     # @li TMSiGetDeviceList should have been called to obtain valid
     #       TMSiDeviceID
     #
@@ -684,7 +684,7 @@ if ApexDllAvailable and not ApexDllLocked:
     # The DataType indicates if the data is Sampledata DataType = 1,  ImpedanceData
     # DataType = 2, Sampledata Recording = 3.
     # In case of impedance data only Channels with "ImpDivider" > -1 are transmitted.
-    # The buffer retured is a multiple of Samplesets.
+    # The buffer returned is a multiple of Samplesets.
     #
     #
     # @Pre @li \ref TMSiOpenDevice should have been called and returned a valid
@@ -766,7 +766,7 @@ if ApexDllAvailable and not ApexDllLocked:
     # impedance-sample per set. The application should match each sample with the
     # corresponding channel. All samples are in order of enabled channels starting
     # at the first channel.
-    # The buffer retured is a multiple of Samplesets.
+    # The buffer returned is a multiple of Samplesets.
     #
     # @Pre @li \ref TMSiOpenInterface should have been called and returned a valid
     # TMSIDeviceHandle. The device shall be in "Device_Impedance" state.
@@ -933,7 +933,7 @@ if ApexDllAvailable and not ApexDllLocked:
     ]
 
     # ---
-    # @details This command is used to get the first event fom the event buffer thread.
+    # @details This command is used to get the first event from the event buffer thread.
     #
     # @Pre @li \ref None.
     #

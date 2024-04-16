@@ -259,7 +259,7 @@ class SagaDevice(TMSiDevice):
         if self.__info.get_state() == DeviceState.connected:
             TMSiLoggerActivity().log("SAGA-SDK->>SAGA-API: export configuration")
             if self.__config.export_to_xml(filename):
-                TMSiLoggerActivity().log("SAGA-API->>SAGA-SDK: export succeded")
+                TMSiLoggerActivity().log("SAGA-API->>SAGA-SDK: export succeeded")
                 return
             else:
                 TMSiLoggerActivity().log("SAGA-API->>SAGA-SDK: export failed file write error")
@@ -525,7 +525,7 @@ class SagaDevice(TMSiDevice):
     def get_device_references(self):
         """Get device references
 
-        :return: A dictionary whith reference and autoreference
+        :return: A dictionary with reference and autoreference
         :rtype: dict
         """
         refs = dict()
@@ -760,7 +760,7 @@ class SagaDevice(TMSiDevice):
 
             if self.__last_error_code == TMSiDeviceRetVal.TMSI_OK:
                 TMSiLoggerActivity().log("SAGA-API->>SAGA-SDK: open connection succeeded")
-                # The device is opened succesfully. Update the device information.
+                # The device is opened successfully. Update the device information.
                 self.__info.set_state(DeviceState.connected)
                 # Read the device's configuration
                 self.__load_config_from_device()
@@ -1217,7 +1217,7 @@ class SagaDevice(TMSiDevice):
         if bw_available <= bw_requested:
             raise TMSiError(
                 error_code=TMSiErrorCode.api_incompatible_configuration,
-                message="The interface bandwidth is not compatible with the channel configuraton.",
+                message="The interface bandwidth is not compatible with the channel configuration.",
             )
 
     @LogPerformances
@@ -1433,7 +1433,7 @@ class SagaDevice(TMSiDevice):
             if bw_requested > bw_button:
                 raise TMSiError(
                     error_code=TMSiErrorCode.api_incompatible_configuration,
-                    message="The interface bandwidth is not compatible with the channel configuraton.",
+                    message="The interface bandwidth is not compatible with the channel configuration.",
                 )
         self.__last_error_code = TMSiSetDeviceAmbConfig(self.__device_handle, pointer(config))
         if self.__last_error_code == TMSiDeviceRetVal.TMSI_OK:

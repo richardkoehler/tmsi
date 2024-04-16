@@ -241,7 +241,7 @@ class TMSiDevChDesc(Structure):
         (
             "ChannelFormat",
             c_ushort,
-        ),  # 0x00xx Usigned xx bits, 0x01xx signed xx bits
+        ),  # 0x00xx Unsigned xx bits, 0x01xx signed xx bits
         (
             "ChanDivider",
             c_short,
@@ -547,10 +547,10 @@ class TMSiDevRecCfg(Structure):
         ),  # Prefix for the final recording filename.
         ("StartTime", TMSiTime),  # The start time for the recording.
         ("StopTime", TMSiTime),  # The stop time for the recording.
-        ("IntervalSeconds", c_short),  # Recuring start time seconds.
-        ("IntervalMinutes", c_short),  # Recuring start time minutes.
-        ("IntervalHours", c_short),  # Recuring start time hours.
-        ("IntervalDays", c_short),  # Recuring start time days.
+        ("IntervalSeconds", c_short),  # Recurring start time seconds.
+        ("IntervalMinutes", c_short),  # Recurring start time minutes.
+        ("IntervalHours", c_short),  # Recurring start time hours.
+        ("IntervalDays", c_short),  # Recurring start time days.
         ("AlarmTimeCount", c_int),  # Amount of recurring cycles.
         ("PreImp", c_short),  # Pre measurement impedance 0=no, 1=yes.
         ("PreImpSec", c_short),  # Amount of seconds for impedance.
@@ -714,7 +714,7 @@ class TMSiDevProductChCfg(Structure):
         (
             "ChannelFormat",
             c_ushort,
-        ),  # 0x00xx Usigned xx bits, 0x01xx signed xx bits
+        ),  # 0x00xx Unsigned xx bits, 0x01xx signed xx bits
         (
             "Unitconva",
             c_float,

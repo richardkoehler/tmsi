@@ -75,7 +75,7 @@ ignore = [
     "E501",
     # Do not use bare `except`
     "E722",
-    # from ... import *` used; unable to detect undefined names 
+    # from ... import *` used; unable to detect undefined names
     "F403",
     # ... may be undefined, or defined from star imports
     "F405",

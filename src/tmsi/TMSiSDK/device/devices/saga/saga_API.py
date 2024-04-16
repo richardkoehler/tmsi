@@ -117,7 +117,7 @@ if SagaDllAvailable and not SagaDllLocked:
     # @details This command is used to open a device. This will create a connection
     # between API and DS and "lock" the interface between DR and DS.
     #
-    # @Pre @li No device should have been openend.
+    # @Pre @li No device should have been opened.
     # @li TMSiGetDeviceList should have been called to obtain valid
     #       TMSiDeviceID
     #
@@ -237,7 +237,7 @@ if SagaDllAvailable and not SagaDllLocked:
     # @param[out] RecorderConfiguration Device configuration.
     # @param[out] ChannelsList  Channel(s) configuration.
     # @param[in] ChannelsListLen    Allocated nr of ChannelList items,
-    # should be atleast NrOfChannels as mentioned in TMSiDevStatReportType
+    # should be at least NrOfChannels as mentioned in TMSiDevStatReportType
     # @return
     # @li TMSI_OK Ok, if response received successful.
     # @li Any TMSI_DS*, TMSI_DR*, TMSI_DLL error received.
@@ -322,7 +322,7 @@ if SagaDllAvailable and not SagaDllLocked:
     # @param[out] SensorList    Channel(s) configuration.
     #
     # @param[in] SensorsListLen Nr of SensorList elements allocated, should be
-    # atleast NrOfSensors from TMSiDevGetConfigType.
+    # at least NrOfSensors from TMSiDevGetConfigType.
     # @param[out] RetSensorsListLen  Nr of Sensor lists returned.
     #                   .
     # @return
@@ -425,7 +425,7 @@ if SagaDllAvailable and not SagaDllLocked:
     # The DataType indicates if the data is Sampledata DataType = 1,  ImpedanceData
     # DataType = 2, Sampledata Recording = 3.
     # In case of impedance data only Channels with "ImpDivider" > -1 are transmitted.
-    # The buffer retured is a multiple of Samplesets.
+    # The buffer returned is a multiple of Samplesets.
     #
     #
     # @Pre @li \ref TMSiOpenDevice should have been called and returned a valid
@@ -536,7 +536,7 @@ if SagaDllAvailable and not SagaDllLocked:
     # "TMSiGetDeviceStorageList". After a successful return from this call the file
     # sample data can be retrieved by calling the "TMSiGetDeviceData" where the
     # "DataType" flag will be 3.  To Stop / abort the file transfer this call can be
-    # used with the apropriate StartStop flag.
+    # used with the appropriate StartStop flag.
     #
     # @Pre @li \ref TMSiOpenDevice should have been called and returned a valid
     # TMSIDeviceHandle.
@@ -554,7 +554,7 @@ if SagaDllAvailable and not SagaDllLocked:
     # @param[out] ImpedanceReportList      An impedance value for each impedance
     # enabled channel.
     # @param[in] ImpedanceReportListLen   Size of mpedanceReportListshould be
-    # atleast the size of all channels with ImpDivider > -1 * int32_t. ImpDivider is
+    # at least the size of all channels with ImpDivider > -1 * int32_t. ImpDivider is
     # found in TMSiDevChDescType.
     #
     # @return

@@ -98,7 +98,7 @@ class TMSiDeviceRetVal(Enum):
 
 
 # Communication interface used
-# 0 = Unknown, 1=USB 2=Nework, 3=WiFi, 4=Electrical, 5=Optical, 6=Bluetooth, 7=Serial.
+# 0 = Unknown, 1=USB 2=Network, 3=WiFi, 4=Electrical, 5=Optical, 6=Bluetooth, 7=Serial.
 @unique
 class TMSiInterface(Enum):
     IfTypeUnknown = 0  # Unknown interface type.

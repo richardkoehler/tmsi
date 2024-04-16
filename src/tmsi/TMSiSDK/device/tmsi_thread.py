@@ -42,7 +42,7 @@ class TMSiThread(threading.Thread):
     def __init__(self, looping_function, pause=0.01, name="TMSi Thread"):
         """_summary_
 
-        :param looping_function: the function which must be exectuted.
+        :param looping_function: the function which must be executed.
         :type looping_function: function
         :param pause: pause time between each loop of the thread, defaults to 0.01
         :type pause: float, optional

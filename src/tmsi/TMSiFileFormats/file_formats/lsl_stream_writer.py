@@ -49,7 +49,7 @@ class LSLConsumer:
     """
     Provides the .put() method expected by TMSiSDK.sample_data_server
 
-    liblsl will handle the data buffer in a seperate thread. Since liblsl can
+    liblsl will handle the data buffer in a separate thread. Since liblsl can
     bypass the global interpreter lock and python can't, and lsl uses faster
     compiled code, it's better to offload this than to create our own thread.
     """

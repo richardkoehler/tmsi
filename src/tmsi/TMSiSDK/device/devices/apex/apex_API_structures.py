@@ -633,7 +633,7 @@ class TMSiDevProductChCfg(Structure):
         (
             "ChannelFormat",
             c_ushort,
-        ),  # 0x00xx Usigned xx bits, 0x01xx signed xx bits
+        ),  # 0x00xx Unsigned xx bits, 0x01xx signed xx bits
         (
             "Unitconva",
             c_float,

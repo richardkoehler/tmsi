@@ -114,7 +114,7 @@ def DeviceErrorLookupTable(code):
         "0x3001004": "DLL Function failed because an underlying process failed",
         "0x3001005": "DLL Function called with a too small buffer",
         "0x3001006": "DLL Function called with a Handle that's not assigned to a device",
-        "0x3002000": "DLL Function failed becasue could not open selected interface",
+        "0x3002000": "DLL Function failed because could not open selected interface",
         "0x3002001": "DLL Function failed because could not close selected interface",
         "0x3002002": "DLL Function failed because could not send command-data",
         "0x3002003": "DLL Function failed because could not receive data",

@@ -240,7 +240,7 @@ class XdfWriter:
                     XdfWriter._write_boundary_chunk(self._fp)
                     _boundary_chunk_counter = 0
 
-            # Store remaining samples for next repetion
+            # Store remaining samples for next repetition
             i = np.int(np.floor(n_samp / _num_sample_sets_per_sample_data_block))
             time_range = [j for j in range(i * _num_sample_sets_per_sample_data_block, n_samp)]
             self._sample_sets_in_block = [
@@ -282,7 +282,7 @@ class XdfWriter:
         """
         # 1. Write the chunk meta-data :
         #       - chunk-length,
-        #       - arbitary bytes
+        #       - arbitrary bytes
         #       - stream-id (when needed)
         #       - chunk-tag
         length_size_type = b"\x01" if length_size == 1 else b"\x04" if length_size == 4 else b"\\8"
@@ -444,7 +444,7 @@ class XdfWriter:
                     item_type.text = "-"
 
                 if imp_df is not None:
-                    # channel impedence
+                    # channel impedance
                     item_impedance = ET.SubElement(item_channel, "impedance")
                     if channels[i].get_channel_type() == ChannelType.UNI:
                         item_impedance.text = str(imp_df["impedance"].values[j])
@@ -732,7 +732,7 @@ class ConsumerThread(threading.Thread):
                             XdfWriter._write_boundary_chunk(self._fw._fp)
                             self._boundary_chunk_counter = 0
 
-                    # Store remaining samples for next repetion
+                    # Store remaining samples for next repetition
                     i = np.int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))
                     ind = np.arange(
                         i * self._num_sample_sets_per_sample_data_block * sd.num_samples_per_sample_set,

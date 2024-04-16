@@ -89,7 +89,7 @@ class Poly5Writer:
             if (self._num_sample_sets_per_sample_data_block * size_one_sample_set) > 64000:
                 self._num_sample_sets_per_sample_data_block = int(64000 / size_one_sample_set)
 
-            # Write poly5-header for thsi measurement
+            # Write poly5-header for this measurement
             Poly5Writer._writeHeader(
                 self._fp,
                 "measurement",

@@ -56,7 +56,7 @@ class ApexConfig:
 
         :param filename: filename where to save the configuration.
         :type filename: str
-        :return: True if succeded, False if failed.
+        :return: True if succeeded, False if failed.
         :rtype: bool
         """
         try:
@@ -83,7 +83,7 @@ class ApexConfig:
 
         :param filename: filename where to take the configuration from.
         :type filename: str
-        :return: True if succeded, False if failed.
+        :return: True if succeeded, False if failed.
         :rtype: bool
         """
         try:

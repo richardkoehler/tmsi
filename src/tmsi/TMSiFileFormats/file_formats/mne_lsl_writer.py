@@ -40,6 +40,7 @@ import mne_lsl
 import numpy as np
 
 from ...TMSiSDK.device import ChannelType
+from ...TMSiSDK.device.tmsi_device import TMSiDevice
 from ...TMSiSDK.sample_data_server.sample_data_server import SampleDataServer
 from ...TMSiSDK.tmsi_errors.error import (
     TMSiError,
@@ -47,11 +48,11 @@ from ...TMSiSDK.tmsi_errors.error import (
 )
 
 
-class LSLConsumer:
+class _MNELSLConsumer:
     """
     Provides the .put() method expected by TMSiSDK.sample_data_server
 
-    liblsl will handle the data buffer in a seperate thread. Since liblsl can
+    liblsl will handle the data buffer in a separate thread. Since liblsl can
     bypass the global interpreter lock and python can't, and lsl uses faster
     compiled code, it's better to offload this than to create our own thread.
     """
@@ -63,7 +64,8 @@ class LSLConsumer:
         """
         Pushes sample data to pylsl outlet, which handles the data buffer
 
-        sd (TMSiSDK.sample_data.SampleData): provided by the sample data server
+        Args:
+            sd (TMSiSDK.sample_data.SampleData): provided by the sample data server
         """
         try:
             # reshape incoming samples
@@ -78,23 +80,42 @@ class LSLConsumer:
             raise TMSiError(TMSiErrorCode.file_writer_error)
 
 
-class LSLWriter:
+class MNELSLWriter:
     """
     A drop-in replacement for a TSMiSDK filewriter object
-    that streams data to labstreaminglayer
+    that streams data to lab streaming layer (LSL).
     """
 
-    def __init__(self, stream_name: str = "", chunk_size: int | Literal["auto"] = "auto"):
-        self._name = stream_name if stream_name else "tmsi"
+    def __init__(self, stream_name: str = "tmsi", chunk_size: int | Literal["auto"] = 1):
+        """
+        Initializes an instance of the MNE LSL Writer.
+
+        Args:
+            stream_name (str, optional): The name of the LSL stream. Defaults to "tmsi".
+            chunk_size (int | Literal["auto"], optional): The chunk size for the LSL stream.
+                If set to "auto", the chunk size will be determined automatically to be
+                less than or equal to 64kb of data. Defaults to 1 (MNE-LSL default).
+        """
+        self._name = stream_name
         self._chunk_size = chunk_size
         self._consumer = None
         self._outlet = None
         self._device_id = None
 
-    def open(self, device):
+    def open(self, device: TMSiDevice):
         """
-        Input is an open TMSiSDK device object
+        Opens the TMSi MNE-LSL Writer.
+
+        Args:
+            device: An open TMSiSDK device object.
+
+        Raises:
+            TMSiError: If there is an error with the file writer.
+
+        Returns:
+            None
         """
+
         print("Opening TMSi MNE-LSL Writer.")
         self._device_id = device.get_id()
         try:
@@ -141,7 +162,6 @@ class LSLWriter:
                     ch_types.append_child_value("type", "COUNTER")
                 else:
                     ch_types.append_child_value("type", "-")
-            # sinfo.set_channel_names(ch_names)
 
             info = mne.create_info(
                 ch_names=ch_names,
@@ -161,13 +181,13 @@ class LSLWriter:
 
             # start sampling data and pushing to LSL
             self._outlet = mne_lsl.lsl.StreamOutlet(sinfo=sinfo, chunk_size=self._chunk_size)
-            self._consumer = LSLConsumer(self._outlet)
+            self._consumer = _MNELSLConsumer(self._outlet)
             SampleDataServer().register_consumer(self._device_id, self._consumer)
-
-        except:
-            raise TMSiError(TMSiErrorCode.file_writer_error)
+        except Exception as e:
+            raise TMSiError(TMSiErrorCode.file_writer_error) from e
 
     def close(self):
+        """Closes the MNE-LSL Writer."""
         print("Closing TMSi MNE-LSL Writer.")
         SampleDataServer().unregister_consumer(self._device_id, self._consumer)
         self._consumer = None

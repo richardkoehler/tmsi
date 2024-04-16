@@ -1,7 +1,6 @@
 import mne
 import mne_lsl
 
-
 if __name__ == "__main__":
     sfreq = 4096
     ch_names = ["ecog", "eeg", "status", "counter"]
@@ -14,7 +13,7 @@ if __name__ == "__main__":
         n_channels=4,
         sfreq=sfreq,
         dtype="float32",
-        source_id=f"tmsi-01",
+        source_id="tmsi-01",
     )
 
     info = mne.create_info(

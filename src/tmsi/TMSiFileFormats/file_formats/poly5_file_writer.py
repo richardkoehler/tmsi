@@ -270,7 +270,7 @@ class ConsumerThread(threading.Thread):
                 n_samp = int(len(samples) / sd.num_samples_per_sample_set)
 
                 try:
-                    for i in range(np.int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))):
+                    for i in range(int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))):
                         self._sample_sets_in_block = samples[
                             i
                             * self._num_sample_sets_per_sample_data_block
@@ -310,7 +310,7 @@ class ConsumerThread(threading.Thread):
                             # Go back to end of file
                             self._fp.seek(0, os.SEEK_END)
 
-                    i = np.int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))
+                    i = int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))
                     ind = np.arange(
                         i * self._num_sample_sets_per_sample_data_block * sd.num_samples_per_sample_set,
                         n_samp * sd.num_samples_per_sample_set,

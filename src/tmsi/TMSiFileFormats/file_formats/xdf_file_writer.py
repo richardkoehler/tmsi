@@ -204,7 +204,7 @@ class XdfWriter:
         _boundary_chunk_counter = 0
         _boundary_chunk_counter_threshold = 10 * self._sample_rate
         n_samp = int(len(streams[0]) * len(streams) / n_ch)
-        n_iter = np.int(np.floor(n_samp / _num_sample_sets_per_sample_data_block))
+        n_iter = int(np.floor(n_samp / _num_sample_sets_per_sample_data_block))
         try:
             for i in range(n_iter):
                 time_range = [
@@ -241,7 +241,7 @@ class XdfWriter:
                     _boundary_chunk_counter = 0
 
             # Store remaining samples for next repetition
-            i = np.int(np.floor(n_samp / _num_sample_sets_per_sample_data_block))
+            i = int(np.floor(n_samp / _num_sample_sets_per_sample_data_block))
             time_range = [j for j in range(i * _num_sample_sets_per_sample_data_block, n_samp)]
             self._sample_sets_in_block = [
                 streams[n_channel][n_sample] for n_sample in time_range for n_channel in range(len(streams))
@@ -708,7 +708,7 @@ class ConsumerThread(threading.Thread):
                 try:
                     # Collect the sample-sets:
                     # When collected enough to fill a sample-data-block, write it to a Samples-chunk
-                    for i in range(np.int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))):
+                    for i in range(int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))):
                         self._sample_sets_in_block = samples[
                             i
                             * self._num_sample_sets_per_sample_data_block
@@ -733,7 +733,7 @@ class ConsumerThread(threading.Thread):
                             self._boundary_chunk_counter = 0
 
                     # Store remaining samples for next repetition
-                    i = np.int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))
+                    i = int(np.floor(n_samp / self._num_sample_sets_per_sample_data_block))
                     ind = np.arange(
                         i * self._num_sample_sets_per_sample_data_block * sd.num_samples_per_sample_set,
                         n_samp * sd.num_samples_per_sample_set,

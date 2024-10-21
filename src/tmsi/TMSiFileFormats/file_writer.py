@@ -34,6 +34,8 @@ limitations under the License.
 
 from enum import Enum
 
+from pylsl import local_clock
+
 from ..TMSiSDK.tmsi_errors.error import TMSiError, TMSiErrorCode
 
 
@@ -56,7 +58,7 @@ class FileWriter:
         measurement-data must be written.
     """
 
-    def __init__(self, data_format_type, filename, add_ch_locs=False, download=False):
+    def __init__(self, data_format_type, filename, add_ch_locs=False, download=False, time_func=local_clock):
         if data_format_type == FileFormat.poly5:
             from .file_formats.poly5_file_writer import Poly5Writer
 
@@ -71,7 +73,7 @@ class FileWriter:
             from .file_formats.lsl_stream_writer import LSLWriter
 
             self._data_format_type = data_format_type
-            self._file_writer = LSLWriter(filename)
+            self._file_writer = LSLWriter(filename, time_func=time_func)
         else:
             print("Unsupported data format")
             raise TMSiError(TMSiErrorCode.api_incorrect_argument)

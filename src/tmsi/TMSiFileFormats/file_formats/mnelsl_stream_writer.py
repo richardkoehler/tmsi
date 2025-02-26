@@ -59,8 +59,9 @@ class _MNELSLConsumer:
     compiled code, it's better to offload this than to create our own thread.
     """
 
-    def __init__(self, lsl_outlet: mne_lsl.lsl.StreamOutlet):
+    def __init__(self, lsl_outlet: mne_lsl.lsl.StreamOutlet, time_func):
         self._outlet = lsl_outlet
+        self._time_func = time_func
 
     def put(self, sd):
         """
@@ -77,7 +78,7 @@ class _MNELSLConsumer:
                 order="F",
             )
             # and push to LSL
-            self._outlet.push_chunk(signals, mne_lsl.lsl.local_clock())
+            self._outlet.push_chunk(signals, self._time_func())
         except:
             raise TMSiError(TMSiErrorCode.file_writer_error)
 
@@ -88,7 +89,12 @@ class MNELSLWriter:
     that streams data to lab streaming layer (LSL).
     """
 
-    def __init__(self, stream_name: str = "tmsi", chunk_size: int | Literal["auto"] = 1):
+    def __init__(
+        self,
+        stream_name: str = "tmsi",
+        chunk_size: int | Literal["auto"] = 1,
+        time_func=mne_lsl.lsl.local_clock,
+    ):
         """
         Initializes an instance of the MNE LSL Writer.
 
@@ -100,6 +106,7 @@ class MNELSLWriter:
         """
         self._name = stream_name
         self._chunk_size = chunk_size
+        self._time_func = time_func
         self._consumer = None
         self._outlet = None
         self._device_id = None
@@ -183,7 +190,14 @@ class MNELSLWriter:
 
             # start sampling data and pushing to LSL
             self._outlet = mne_lsl.lsl.StreamOutlet(sinfo=sinfo, chunk_size=self._chunk_size)
-            self._consumer = _MNELSLConsumer(self._outlet)
+            while True:
+                consumer_connected = self._outlet.wait_for_consumers(timeout=3)
+                if consumer_connected:
+                    break
+                print(
+                    f"No consumer connected to Stream with name = {self._outlet.get_sinfo().name}, waiting..."
+                )
+            self._consumer = _MNELSLConsumer(self._outlet, self._time_func)
             SampleDataServer().register_consumer(self._device_id, self._consumer)
         except Exception as e:
             raise TMSiError(TMSiErrorCode.file_writer_error) from e

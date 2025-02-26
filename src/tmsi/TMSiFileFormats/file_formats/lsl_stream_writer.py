@@ -54,7 +54,7 @@ class LSLConsumer:
     compiled code, it's better to offload this than to create our own thread.
     """
 
-    def __init__(self, lsl_outlet, time_func=local_clock):
+    def __init__(self, lsl_outlet, time_func):
         self._outlet = lsl_outlet
         self._time_func = time_func
 
@@ -84,11 +84,11 @@ class LSLWriter:
 
     def __init__(self, stream_name="", time_func=local_clock):
         self._name = stream_name if stream_name else "tmsi"
+        self._time_func = time_func
         self._consumer = None
         self.device = None
         self._date = None
         self._outlet = None
-        self._time_func = time_func
 
     def open(self, device):
         """

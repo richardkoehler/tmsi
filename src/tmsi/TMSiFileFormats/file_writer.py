@@ -44,6 +44,7 @@ class FileFormat(Enum):
     poly5 = 1
     xdf = 2
     lsl = 3
+    mnelsl = 4
 
 
 class FileWriter:
@@ -74,6 +75,11 @@ class FileWriter:
 
             self._data_format_type = data_format_type
             self._file_writer = LSLWriter(filename, time_func=time_func)
+        elif data_format_type == FileFormat.mnelsl:
+            from .file_formats.mnelsl_stream_writer import MNELSLWriter
+
+            self._data_format_type = data_format_type
+            self._file_writer = MNELSLWriter(filename)
         else:
             print("Unsupported data format")
             raise TMSiError(TMSiErrorCode.api_incorrect_argument)

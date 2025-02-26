@@ -33,7 +33,7 @@ limitations under the License.
 """
 
 from .file_formats.lsl_stream_writer import LSLWriter
-from .file_formats.mne_lsl_writer import MNELSLWriter
+from .file_formats.mnelsl_stream_writer import MNELSLWriter
 from .file_formats.poly5_file_writer import Poly5Writer
 from .file_formats.poly5_to_edf_converter import Poly5_to_EDF_Converter
 from .file_formats.xdf_file_writer import XdfWriter
